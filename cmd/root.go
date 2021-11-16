@@ -1,11 +1,12 @@
 package cmd
 
 import (
+	"os"
+	"time"
+
 	"github.com/pallavJha/chaakoo"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"os"
-	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -63,8 +64,10 @@ var (
 			if err != nil {
 				log.Fatal().Err(err).Msg("error while applying the config")
 			}
-			log.Info().Msg("session created successfully, it can be attached by executing:")
-			log.Info().Msgf("tmux a -t %s", config.SessionName)
+			log.Info().Msg("sessions created successfully, it can be attached by executing:")
+			for _, session := range config.Sessions {
+				log.Info().Msgf("tmux a -t %s", session.Name)
+			}
 		},
 	}
 )
