@@ -63,7 +63,12 @@ type Window struct {
 	Name      string `mapstructure:"name"`
 	Grid      string `mapstructure:"grid"`
 	FirstPane *Pane
-	Commands  []*Command `mapstructure:"commands"`
+	Commands  []*Command     `mapstructure:"commands"`
+	Options   *WindowOptions `mapstructure:"options"`
+}
+
+type WindowOptions struct {
+	SynchronizePanes bool `mapstructure:"sync"`
 }
 
 // Validate validates a Window related config

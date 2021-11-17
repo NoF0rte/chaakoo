@@ -89,17 +89,29 @@ func (t *TmuxWrapper) Apply() error {
 		if err = t.handleRunCommands(session.Windows[0], paneNames); err != nil {
 			return err
 		}
+
+		err = t.setWindowOptions(session.Name, session.Windows[0])
+		if err != nil {
+			return err
+		}
+
 		for i := 1; i < len(session.Windows); i++ {
-			res, err = t.newWindow(session.Name, session.Windows[i].Name)
+			window := session.Windows[i]
+			res, err = t.newWindow(session.Name, window.Name)
 			if err != nil {
-				return fmt.Errorf("cannot create the window, %s: %w", session.Windows[i].Name, err)
+				return fmt.Errorf("cannot create the window, %s: %w", window.Name, err)
 			}
 			paneNames = make(map[string]string)
-			paneNames[session.Windows[i].FirstPane.Name] = res.PaneID
-			if err = t.walkPane(session.Windows[i].FirstPane, paneNames); err != nil {
+			paneNames[window.FirstPane.Name] = res.PaneID
+			if err = t.walkPane(window.FirstPane, paneNames); err != nil {
 				return err
 			}
-			if err = t.handleRunCommands(session.Windows[i], paneNames); err != nil {
+			if err = t.handleRunCommands(window, paneNames); err != nil {
+				return err
+			}
+
+			err = t.setWindowOptions(session.Name, window)
+			if err != nil {
 				return err
 			}
 		}
@@ -303,6 +315,35 @@ func (t *TmuxWrapper) newWindow(sessionName, windowName string) (*TmuxCmdRespons
 	}, nil
 }
 
+func (t *TmuxWrapper) setWindowOptions(sessionName string, window *Window) error {
+	if window.Options != nil {
+		if window.Options.SynchronizePanes {
+			err := t.setWindowOption(sessionName, window.Name, "synchronize-panes", "on")
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func (t *TmuxWrapper) setWindowOption(sessionName, windowName, optionName, optionValue string) error {
+	// tmux set-option -t session:window optionName optionValue
+
+	var args = []string{
+		"set-option",
+		"-t",
+		fmt.Sprintf("%s:%s", sessionName, windowName),
+		optionName,
+		optionValue,
+	}
+	stdout, stderr, _, err := t.executor.Execute(CommandName, args...)
+	if err != nil {
+		return NewTmuxError(stdout, stderr, err)
+	}
+	return nil
+}
+
 func (t *TmuxWrapper) newPane(targetPaneID string, sizeInPercentage int, horizontalSplit bool) (*TmuxCmdResponse, error) {
 	// tmux splitw -h -p 10 -t 0 -P -F "#{pane_id}"
 	// %10
@@ -391,10 +432,10 @@ func (t TmuxWrapper) sendKeys(targetPaneID, paneName string, actions []string) e
 		"send-keys",
 		"-t",
 		targetPaneID,
+		strings.Join(actions, " "),
+		"C-m", // The Enter key
 	}
-	args = append(args, fmt.Sprintf("%s", strings.Join(actions, " ")))
-	// append the C-m for Enter key
-	args = append(args, "C-m")
+
 	stdout, stderr, _, err := t.executor.Execute(CommandName, args...)
 	if err != nil {
 		log.Error().Err(err).Str("stdout", stdout).
