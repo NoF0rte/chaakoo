@@ -70,6 +70,11 @@ func NewTmuxWrapper(config *Config, dimensions *Dimension) *TmuxWrapper {
 // 	- creates windows and panes
 // 	- executes the command of the provided config
 func (t *TmuxWrapper) Apply() error {
+	err := t.ensureServer()
+	if err != nil {
+		return err
+	}
+
 	for _, session := range t.config.Sessions {
 		if present, err := t.hasSession(session.Name); err != nil {
 			return err
@@ -118,6 +123,11 @@ func (t *TmuxWrapper) Apply() error {
 	}
 
 	return nil
+}
+
+func (t *TmuxWrapper) ensureServer() error {
+	_, _, _, err := t.executor.Execute(CommandName, "start-server")
+	return err
 }
 
 func (t *TmuxWrapper) handleRunCommands(window *Window, paneNames map[string]string) error {
