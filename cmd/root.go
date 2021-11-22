@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/pallavJha/chaakoo"
+	"github.com/NoF0rte/chaakoo"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 

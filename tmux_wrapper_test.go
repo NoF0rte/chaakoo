@@ -2,12 +2,13 @@ package chaakoo
 
 import (
 	"errors"
-	"github.com/golang/mock/gomock"
-	"github.com/pallavJha/chaakoo/mocks"
-	"github.com/spf13/viper"
-	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
+
+	"github.com/NoF0rte/chaakoo/mocks"
+	"github.com/golang/mock/gomock"
+	"github.com/spf13/viper"
+	"github.com/stretchr/testify/require"
 )
 
 type TmuxWrapperTestCase struct {
@@ -85,6 +86,6 @@ func adjustSendKeysArgs(args []string) []string {
 	}
 	var newArgs = make([]string, 3)
 	copy(newArgs, args[0:3])
-	newArgs = append(newArgs, strings.Join(args[3:len(args) - 1], " "), "C-m")
+	newArgs = append(newArgs, strings.Join(args[3:len(args)-1], " "), "C-m")
 	return newArgs
 }

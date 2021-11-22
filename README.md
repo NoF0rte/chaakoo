@@ -1,6 +1,6 @@
 # chaakoo
 
-[![Test](https://github.com/pallavJha/chaakoo/actions/workflows/test.yaml/badge.svg)](https://github.com/pallavJha/chaakoo/actions/workflows/test.yaml)
+[![Test](https://github.com/NoF0rte/chaakoo/actions/workflows/test.yaml/badge.svg)](https://github.com/NoF0rte/chaakoo/actions/workflows/test.yaml)
 
 1. [Introduction](#introduction)
 2. [Configuration](#configuration)
@@ -85,9 +85,9 @@ $ tmux start-server
 
 # and then pass the config to Chaakoo
 $ chaakoo -c examples/1/chaakoo.yaml 
-4:43PM ERR github.com/pallavJha/chaakoo/tmux_wrapper.go:349 > unable to get the list of the present sessions error="exit status 1" sessionName=code-environment stderr="no server running on /tmp/tmux-1000/default\n" stdout=
-4:43PM INF github.com/pallavJha/chaakoo/cmd/chaakoo.go:66 > session created successfully, it can be attached by executing:
-4:43PM INF github.com/pallavJha/chaakoo/cmd/chaakoo.go:67 > tmux a -t code-environment
+4:43PM ERR github.com/NoF0rte/chaakoo/tmux_wrapper.go:349 > unable to get the list of the present sessions error="exit status 1" sessionName=code-environment stderr="no server running on /tmp/tmux-1000/default\n" stdout=
+4:43PM INF github.com/NoF0rte/chaakoo/cmd/chaakoo.go:66 > session created successfully, it can be attached by executing:
+4:43PM INF github.com/NoF0rte/chaakoo/cmd/chaakoo.go:67 > tmux a -t code-environment
 
 # Attach the TMUX session
 $ tmux a -t code-environment
@@ -96,11 +96,11 @@ $ tmux a -t code-environment
 - Starting with the `--verbose` or `-v` flag will set the log level to `DEBUG` and time format to `RFC3339`
 ```bash
 $ chaakoo -c examples/1/chaakoo.yaml -v
-2021-09-26T16:47:50+05:30 DBG github.com/pallavJha/chaakoo/cmd/chaakoo.go:128 > setting global log level to DEBUG as verbose log is enabled
-2021-09-26T16:47:50+05:30 DBG github.com/pallavJha/chaakoo/cmd/chaakoo.go:98 > using examples/1/chaakoo.yaml
-2021-09-26T16:47:50+05:30 DBG github.com/pallavJha/chaakoo/cmd/chaakoo.go:114 > using config file: examples/1/chaakoo.yaml
-2021-09-26T16:47:50+05:30 DBG github.com/pallavJha/chaakoo/cmd/chaakoo.go:50 > finding the dimensions
-2021-09-26T16:47:50+05:30 DBG github.com/pallavJha/chaakoo/cmd/chaakoo.go:56 > found dimensions height=81 width=274
+2021-09-26T16:47:50+05:30 DBG github.com/NoF0rte/chaakoo/cmd/chaakoo.go:128 > setting global log level to DEBUG as verbose log is enabled
+2021-09-26T16:47:50+05:30 DBG github.com/NoF0rte/chaakoo/cmd/chaakoo.go:98 > using examples/1/chaakoo.yaml
+2021-09-26T16:47:50+05:30 DBG github.com/NoF0rte/chaakoo/cmd/chaakoo.go:114 > using config file: examples/1/chaakoo.yaml
+2021-09-26T16:47:50+05:30 DBG github.com/NoF0rte/chaakoo/cmd/chaakoo.go:50 > finding the dimensions
+2021-09-26T16:47:50+05:30 DBG github.com/NoF0rte/chaakoo/cmd/chaakoo.go:56 > found dimensions height=81 width=274
 -- more logs --
 ```
 
@@ -127,13 +127,13 @@ Flags:
 There are more examples present in the [examples](./examples/2) directory with configurations and snapshots.
 
 ## Download
-The latest binary can be downloaded from the [latest GitHub release](https://github.com/pallavJha/chaakoo/releases/latest).
+The latest binary can be downloaded from the [latest GitHub release](https://github.com/NoF0rte/chaakoo/releases/latest).
 The binaries are statically linked.
 
 Or 
 
 ```bash
-$ go install github.com/pallavJha/chaakoo/cmd/chaakoo@v0.0.4
+$ go install github.com/NoF0rte/chaakoo/cmd/chaakoo@v0.0.4
 ```
 
 

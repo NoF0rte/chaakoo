@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pallavJha/chaakoo/cmd"
+	"github.com/NoF0rte/chaakoo/cmd"
 	"github.com/rs/zerolog/log"
 )
 

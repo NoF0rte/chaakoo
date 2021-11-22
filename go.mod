@@ -1,4 +1,4 @@
-module github.com/pallavJha/chaakoo
+module github.com/NoF0rte/chaakoo
 
 go 1.16
 
